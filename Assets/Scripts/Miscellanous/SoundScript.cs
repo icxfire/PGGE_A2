@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundScript : MonoBehaviour
 {
     public AudioSource audio;
-    public AudioClip clip;
+    public AudioClip[] clip;
     private bool playOnStart = false;
     public static SoundScript instance;
     // Start is called before the first frame update
@@ -23,8 +23,23 @@ public class SoundScript : MonoBehaviour
 
     }
     
-    public void OnClick()
+    public void OnClick_Single()
     {
-        audio.PlayOneShot(clip);
+        audio.PlayOneShot(clip[0]);
     }
+
+    public void OnClick_Multi()
+    {
+        audio.PlayOneShot(clip[1]);
+    }
+
+    public void OnClick_Join()
+    {
+        audio.PlayOneShot(clip[2]);
+    }
+
+    public void OnClick_Back()
+    {
+        audio.PlayOneShot(clip[3]);
+    } 
 }

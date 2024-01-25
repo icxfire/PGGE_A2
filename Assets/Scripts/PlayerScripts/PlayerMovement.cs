@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         if (jump)
         {
             Jump();
-            jump = false;
+            jump = !jump; //changed to keep consistent with code
         }
         ApplyGravity();
     }

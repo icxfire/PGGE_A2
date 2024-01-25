@@ -11,11 +11,21 @@ public class GameApp : Singleton<GameApp>
     void Start()
     {
         mPause = false;
-        SceneManager.LoadScene("Menu");
+        InitializeMenu(); // changed function in start to make function clearer
     }
 
     // Update is called once per frame
     void Update()
+    {
+        UpdatePauseState();
+    }
+
+    void InitializeMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    void UpdatePauseState()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -29,17 +39,14 @@ public class GameApp : Singleton<GameApp>
         set
         {
             mPause = value;
-            //mOnPause?.Invoke(GamePaused);
-            if (GamePaused)
-            {
-                Time.timeScale = 0;
-            }
-            else
-            {
-                Time.timeScale = 1;
-            }
+            ChangeTimeScale(); // separated the timescale change into a function call to make code more readable
         }
-    }    
+    }
+    
+    void ChangeTimeScale()
+    {
+        Time.timeScale = GamePaused ? 0 : 1; // changes the timescale based on the bool value
+    }
     
     // called first
     void OnEnable()

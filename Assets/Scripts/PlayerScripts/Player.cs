@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
 
     public GameObject mBulletPrefab;
     public float mBulletSpeed = 10.0f;
-
     public int[] RoundsPerSecond = new int[3];
     bool[] mFiring = new bool[3];
 
@@ -42,52 +41,43 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mFsm.Add(new PlayerState_MOVEMENT(this));
-        mFsm.Add(new PlayerState_ATTACK(this));
-        mFsm.Add(new PlayerState_RELOAD(this));
-        mFsm.SetCurrentState((int)PlayerStateType.MOVEMENT);
+        Initialize_Fsm(); // improves readability (Start() not so messy)
     }
 
     void Update()
     {
         mFsm.Update();
         Aim();
+        UpdateAttackInputs();
+    }
 
-        // For Student ----------------------------------------------------//
-        // Implement the logic of button clicks for shooting. 
-        //-----------------------------------------------------------------//
+    public void Initialize_Fsm()
+    {
+        mFsm.Add(new PlayerState_MOVEMENT(this));
+        mFsm.Add(new PlayerState_ATTACK(this));
+        mFsm.Add(new PlayerState_RELOAD(this));
+        mFsm.SetCurrentState((int)PlayerStateType.MOVEMENT);
+    }
 
-        if (Input.GetButton("Fire1"))
-        {
-            mAttackButtons[0] = true;
-            mAttackButtons[1] = false;
-            mAttackButtons[2] = false;
-        }
-        else
-        {
-            mAttackButtons[0] = false;
-        }
+    public void UpdateAttackInputs()
+    {
+        HandleAttackInputs("Fire1", 0); // we just take the input name and assign the respective bool index to it.
+        HandleAttackInputs("Fire2", 1);
+        HandleAttackInputs("Fire3", 2);
+    }
 
-        if (Input.GetButton("Fire2"))
+    public void HandleAttackInputs(string input, int index)
+    {
+        mAttackButtons[index] = Input.GetButton(input); // we then assign it to the respective input 
+        if (mAttackButtons[index]) // check which index is true
         {
-            mAttackButtons[0] = false;
-            mAttackButtons[1] = true;
-            mAttackButtons[2] = false;
-        }
-        else
-        {
-            mAttackButtons[1] = false;
-        }
-
-        if (Input.GetButton("Fire3"))
-        {
-            mAttackButtons[0] = false;
-            mAttackButtons[1] = false;
-            mAttackButtons[2] = true;
-        }
-        else
-        {
-            mAttackButtons[2] = false;
+            for (int i = 0; i < mAttackButtons.Length; i++) // and run through the entire array to set the reset to false
+            {
+                if (i != index)
+                {
+                    mAttackButtons[i] = false;
+                }
+            }
         }
     }
 

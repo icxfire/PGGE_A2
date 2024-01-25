@@ -35,6 +35,11 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
+        InitializeConstants(); // changed function in start to make function clearer.
+    }
+
+    public void InitializeConstants()
+    {
         // Set to CameraConstants class so that other objects can use.
         CameraConstants.Damping = mDamping;
         CameraConstants.CameraPositionOffset = mPositionOffset;
@@ -42,7 +47,6 @@ public class ThirdPersonCamera : MonoBehaviour
         CameraConstants.MinPitch = mMinPitch;
         CameraConstants.MaxPitch = mMaxPitch;
         CameraConstants.RotationSpeed = mRotationSpeed;
-
     }
 
     public void Init()

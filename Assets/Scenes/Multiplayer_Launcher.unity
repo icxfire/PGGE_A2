@@ -268,7 +268,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1688338721}
         m_TargetAssemblyTypeName: ButtonClick, Assembly-CSharp
-        m_MethodName: ButtonClicked
+        m_MethodName: ButtonClicked_J
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1346,7 +1346,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1688338721}
         m_TargetAssemblyTypeName: ButtonClick, Assembly-CSharp
-        m_MethodName: ButtonClicked
+        m_MethodName: ButtonClicked_B
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

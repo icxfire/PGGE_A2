@@ -6,15 +6,20 @@ public class Bullet : MonoBehaviour
 {
     void Start()
     {
-        // Destroy the bullet after 10 seconds if it does not hit any object.
-        StartCoroutine(Coroutine_Destroy(10.0f));
+        HandleDestructionOfBullet(); // changed the function at start to make its function clearer.
     }
 
     void Update()
     {
     }
 
-    IEnumerator Coroutine_Destroy(float duration)
+    void HandleDestructionOfBullet()
+    {
+        // Destroy the bullet after 10 seconds if it does not hit any object.
+        StartCoroutine(Destroy_Bullet(10.0f));
+    }
+
+    IEnumerator Destroy_Bullet(float duration)
     {
         yield return new WaitForSeconds(duration);
         Destroy(gameObject);
@@ -28,6 +33,6 @@ public class Bullet : MonoBehaviour
             obj.TakeDamage();
         }
 
-        StartCoroutine(Coroutine_Destroy(0.1f));
+        StartCoroutine(Destroy_Bullet(0.1f));
     }
 }
